@@ -1,9 +1,11 @@
-<!DOCTYPE html><html lang="bn">
+<!DOCTYPE html>
+<html lang="bn">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prediction Viewer HD</title>
   <style>
+    /* আগের সব স্টাইল অপরিবর্তিত রাখা হয়েছে */
     body {
       background: #111;
       color: #fff;
@@ -16,148 +18,152 @@
       flex-direction: column;
       height: 100vh;
       margin: 0;
+      overflow-y: auto;
+      position: relative;
+    }
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    .top-box, .image-box, .keyboard-row, .youtube-embed, #searchText, input, button, #popupBox {
+      z-index: 1;
+      position: relative;
+    }
+    .top-box {
+      width: 100px;
+      height: 100px;
+      background-color: #222;
+      border: 2px solid #00ffcc;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       overflow: hidden;
-    }.image-box {
-  position: relative;
-  width: 250px;
-  height: 120px;
-  background-color: #333;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid #00ffcc;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  overflow: hidden;
-  z-index: 1;
-}
-
-.image-box img {
-  width: 210px;
-  height: 90px;
-}
-
-@keyframes zoomIn {
-  0% { transform: scale(0.2); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-@keyframes zoomOut {
-  0% { transform: scale(1); opacity: 1; }
-  100% { transform: scale(0); opacity: 0; }
-}
-
-img.animate-in {
-  animation: zoomIn 0.6s ease-out;
-}
-
-img.animate-out {
-  animation: zoomOut 0.6s ease-in forwards;
-}
-
-.iftar-particle {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  background-color: red;
-  opacity: 0.85;
-  animation: floatAroundSquare 8s linear infinite;
-  z-index: 0;
-}
-
-@keyframes floatAroundSquare {
-  0% { transform: translate(0, 0); }
-  25% { transform: translate(40px, -40px); }
-  50% { transform: translate(-30px, -70px); }
-  75% { transform: translate(30px, 20px); }
-  100% { transform: translate(0, 0); }
-}
-
-input {
-  width: 45px;
-  font-size: 22px;
-  margin: 2px;
-  text-align: center;
-  padding: 8px;
-  background-color: #333;
-  border: 2px solid #00ffcc;
-  border-radius: 5px;
-  color: white;
-  z-index: 1;
-}
-
-.keyboard-row {
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-  margin: 6px 0;
-  z-index: 1;
-}
-
-.keyboard-row button, button {
-  width: 55px;
-  height: 55px;
-  font-size: 20px;
-  border-radius: 10px;
-  background-color: #222;
-  border: 2px solid #00ffcc;
-  color: white;
-  cursor: pointer;
-}
-
-button.clear-btn {
-  width: 120px;
-  height: 60px;
-  font-size: 22px;
-  font-weight: bold;
-  background-color: #333;
-  margin-top: 10px;
-}
-
-#popupBox {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #222;
-  color: white;
-  padding: 20px;
-  border-radius: 10px;
-  z-index: 100;
-  font-size: 24px;
-  font-weight: bold;
-  border: 4px solid #00ffcc;
-  box-shadow: 0 0 15px #00ffcc;
-}
-
-#searchText {
-  margin-top: 8px;
-  font-size: 22px;
-  font-weight: bold;
-  color: #00ffcc;
-}
-
-.youtube-embed {
-  margin-top: 12px;
-  width: 210px;
-  height: 350px;
-  background-color: #222;
-  border: 2px solid #FF0000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1;
-}
-
-.youtube-embed iframe {
-  width: 100%;
-  height: 100%;
-}
-
+      flex-direction: column;
+    }
+    .top-box img {
+      width: 100px;
+      height: 100px;
+      margin: 3px 0;
+    }
+    #topImageContainer {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .image-box {
+      position: relative;
+      width: 230px;
+      height: 120px;
+      background-color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid #00ffcc;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .image-box img {
+      width: 200px;
+      height: 90px;
+    }
+    @keyframes zoomIn {
+      0% { transform: scale(0.2); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes zoomOut {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(0); opacity: 0; }
+    }
+    img.animate-in {
+      animation: zoomIn 0.6s ease-out;
+    }
+    img.animate-out {
+      animation: zoomOut 0.6s ease-in forwards;
+    }
+    input {
+      width: 45px;
+      font-size: 22px;
+      margin: 2px;
+      text-align: center;
+      padding: 8px;
+      background-color: #333;
+      border: 2px solid #00ffcc;
+      border-radius: 5px;
+      color: white;
+    }
+    .keyboard-row {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin: 6px 0;
+    }
+    .keyboard-row button, button {
+      width: 55px;
+      height: 55px;
+      font-size: 20px;
+      border-radius: 10px;
+      background-color: #222;
+      border: 2px solid #00ffcc;
+      color: white;
+      cursor: pointer;
+    }
+    button.clear-btn {
+      width: 120px;
+      height: 60px;
+      font-size: 22px;
+      font-weight: bold;
+      background-color: #333;
+      margin-top: 10px;
+    }
+    #popupBox {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: transparent;
+      color: transparent;
+      padding: 0;
+      border: none;
+      box-shadow: none;
+      font-size: 0;
+    }
+    #searchText {
+      margin-top: 8px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #00ffcc;
+    }
+    .youtube-embed {
+      margin-top: 12px;
+      width: 250px;
+      height: 390px;
+      background-color: #222;
+      border: 2px solid #FF0000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .youtube-embed iframe {
+      width: 100%;
+      height: 100%;
+    }
   </style>
 </head>
 <body>
+  <div id="particles-js"></div>
+  <div id="topImageContainer">
+    <div class="top-box" id="box1"></div>
+    <div class="top-box" id="box2"></div>
+    <div class="top-box" id="box3"></div>
+  </div>
   <div class="image-box" id="imageBox"></div>
   <div id="searchText"></div>
   <div>
@@ -168,58 +174,48 @@ button.clear-btn {
     <input type="number" id="n2" min="0" max="9" oninput="checkPattern()">
     <input type="number" id="n1" min="0" max="9" oninput="checkPattern()">
   </div>
-  <div class="keyboard-row">
-    <button onclick="addNumber(1)">1</button>
-    <button onclick="addNumber(2)">2</button>
-    <button onclick="addNumber(3)">3</button>
-    <button onclick="addNumber(4)">4</button>
-    <button onclick="addNumber(5)">5</button>
+  
+  <button class="clear-btn" onclick="clearInputs()">Clear</button>
+  <div id="popupBox"><p id="popupText"></p></div>
+  <div class="youtube-embed">
+    <iframe src="https://hgzy.in/#/register?invitationCode=33636127847" frameborder="0" allowfullscreen></iframe>
   </div>
-  <div class="keyboard-row">
-    <button onclick="addNumber(6)">6</button>
-    <button onclick="addNumber(7)">7</button>
-    <button onclick="addNumber(8)">8</button>
-    <button onclick="addNumber(9)">9</button>
-    <button onclick="addNumber(0)">0</button>
-  </div>
-  <button class="clear-btn" onclick="clearInputs()">Clear</button>  <div id="popupBox">
-    <p id="popupText"></p>
-  </div>  <div class="youtube-embed">
-    <iframe src="https://hgzy.in/#/register?invitationCode=74456750825" frameborder="0" allowfullscreen></iframe>
-  </div>  <script>
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+  <script>
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 60, density: { enable: true, value_area: 800 } },
+        color: { value: "#00ffcc" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5 },
+        size: { value: 3 },
+        line_linked: { enable: true, distance: 150, color: "#00ffcc", opacity: 0.4, width: 1 },
+        move: { enable: true, speed: 2 }
+      },
+      interactivity: {
+        events: {
+          onhover: { enable: true, mode: "repulse" },
+          onclick: { enable: true, mode: "push" }
+        }
+      }
+    });
+
     let datasetBS = [], datasetRG = [];
 
-    fetch('https://raw.githubusercontent.com/Nyeem122-8/Text-b-s-r-g/refs/heads/main/dataset.json')
+    fetch('https://raw.githubusercontent.com/Nyeem122-8/Jdjdjjfjfj/refs/heads/main/dataset.json')
       .then(res => res.json())
       .then(data => datasetBS = data);
-
-    fetch('https://raw.githubusercontent.com/Nyeem122-8/Text-b-s-r-g/refs/heads/main/dataset1.json')
+    fetch('https://raw.githubusercontent.com/Nyeem122-8/Jdjdjjfjfj/refs/heads/main/dataset1.json')
       .then(res => res.json())
       .then(data => datasetRG = data);
-
-    function createIftarParticles() {
-      const colors = ['red', 'blue', 'yellow', 'green'];
-      for (let i = 0; i < 30; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('iftar-particle');
-        particle.style.top = `${Math.random() * window.innerHeight}px`;
-        particle.style.left = `${Math.random() * window.innerWidth}px`;
-        particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        particle.style.animationDelay = `${Math.random() * 8}s`;
-        document.body.appendChild(particle);
-      }
-    }
 
     function numToBS(num) {
       return num >= 5 ? "B" : "S";
     }
 
     function numToRG(num) {
-      return [1,3,5,7,9].includes(num) ? "G" : "R";
-    }
-
-    function showSearchText(inputs) {
-      document.getElementById("searchText").innerText = '';
+      return [1, 3, 5, 7, 9].includes(num) ? "G" : "R";
     }
 
     function checkPattern() {
@@ -231,7 +227,7 @@ button.clear-btn {
         }
       }
 
-      if (inputs.length < 1) {
+      if (inputs.length < 0) {
         document.getElementById("imageBox").innerHTML = "<p style='color:#ff4444;'>কমপক্ষে ২টি সংখ্যা দিন।</p>";
         return;
       }
@@ -254,6 +250,7 @@ button.clear-btn {
         img.classList.add("animate-in");
         imageBox.appendChild(img);
         showPopup(combo);
+        updateTopBoxes(combo);
 
         setTimeout(() => {
           if (img) {
@@ -267,8 +264,38 @@ button.clear-btn {
       } else {
         imageBox.innerHTML = "<p style='color:#ff4444;'>মিল পাওয়া যায়নি।</p>";
       }
+    }
 
-      showSearchText(inputs);
+    function updateTopBoxes(combo) {
+      const topImages = {
+        SR: ['num0.png', 'num2.png', 'num4.png'],
+        SG: ['num1.png', 'num3.png'],
+        BG: ['num5.png', 'num7.png', 'num9.png'],
+        BR: ['num6.png', 'num8.png']
+      };
+
+      const box1 = document.getElementById("box1");
+      const box2 = document.getElementById("box2");
+      const box3 = document.getElementById("box3");
+
+      box1.innerHTML = "";
+      box2.innerHTML = "";
+      box3.innerHTML = "";
+
+      let images = [];
+      for (let key in topImages) {
+        if (combo.includes(key)) {
+          images = topImages[key];
+          break;
+        }
+      }
+
+      const boxes = [box1, box2, box3];
+      for (let i = 0; i < images.length; i++) {
+        const img = document.createElement("img");
+        img.src = images[i];
+        boxes[i].appendChild(img);
+      }
     }
 
     function findMatch(dataset, pattern) {
@@ -296,7 +323,6 @@ button.clear-btn {
       for (let i = 1; i <= 6; i++) {
         document.getElementById("n" + i).value = "";
       }
-
       const img = document.querySelector("#imageBox img");
       if (img) {
         img.classList.remove("animate-in");
@@ -305,11 +331,12 @@ button.clear-btn {
           document.getElementById("imageBox").innerHTML = "";
         }, 600);
       }
-
-      const particles = document.querySelectorAll(".iftar-particle");
-      particles.forEach(p => p.remove());
-      createIftarParticles();
+      document.getElementById("box1").innerHTML = "";
+      document.getElementById("box2").innerHTML = "";
+      document.getElementById("box3").innerHTML = "";
       document.getElementById("searchText").innerText = "";
+
+      fetchLatestNumbers(); // API থেকে নতুন সংখ্যা আনো
     }
 
     function showPopup(text) {
@@ -317,11 +344,43 @@ button.clear-btn {
       let popupText = document.getElementById('popupText');
       popupText.innerHTML = text;
       popupBox.style.display = 'block';
-      setTimeout(() => popupBox.style.display = 'none', 2000);
+      setTimeout(() => popupBox.style.display = 'none', 1000);
     }
 
-    window.onload = () => {
-      createIftarParticles();
-    };
-  </script></body>
+    // API ফাংশন
+    function fetchLatestNumbers() {
+      const requestData = {
+        pageSize: 10,
+        pageNo: 1,
+        typeId: 30,
+        language: 0,
+        random: "62d02162c2234c64b57aa4188c5810b2",
+        signature: "9BF7A245709AA054E231D75C404C6527",
+        timestamp: Math.floor(Date.now() / 1000)
+      };
+
+      fetch('https://crbbb.com/api/webapi/GetNoaverageEmerdList', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+          'Accept': 'application/json, text/plain, */*'
+        },
+        body: JSON.stringify(requestData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        const numbers = data.data.list.slice(0, 6).map(item => item.number % 10);
+        for (let i = 6; i >= 1; i--) {
+          document.getElementById("n" + i).value = numbers[6 - i];
+        }
+        checkPattern();
+      })
+      .catch(error => console.error('Error fetching API numbers:', error));
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      fetchLatestNumbers();
+    });
+  </script>
+</body>
 </html>
